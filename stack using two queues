@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 100
+
+int q1[MAX], q2[MAX], front1 = 0, rear1 = 0, front2 = 0, rear2 = 0;
+
+void enqueue(int q[], int *rear, int val) {
+    q[(*rear)++] = val;
+}
+
+int dequeue(int q[], int *front) {
+    return q[(*front)++];
+}
+
+int isEmpty(int front, int rear) {
+    return front == rear;
+}
+
+void push(int val) {
+    enqueue(q2, &rear2, val);
+    while(!isEmpty(front1, rear1))
+        enqueue(q2, &rear2, dequeue(q1, &front1));
+    int *tq;
+    int tf, tr;
+    tq = q1; q1 = q2; q2 = tq;
+    tf = front1; front1 = front2; front2 = tf;
+    tr = rear1; rear1 = rear2; rear2 = tr;
+}
+
+int pop() {
+    if(isEmpty(front1, rear1))
+        return -1;
+    return dequeue(q1, &front1);
+}
+
+int main() {
+    push(10);
+    push(20);
+    push(30);
+    printf("%d\n", pop());
+    printf("%d\n", pop());
+    push(40);
+    printf("%d\n", pop());
+    printf("%d\n", pop());
+    return 0;
+}
