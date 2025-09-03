@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#define MAX 100
+
+int stack[MAX], top = -1;
+
+int isEmpty() {
+    return top == -1;
+}
+
+int isFull() {
+    return top == MAX - 1;
+}
+
+void push(int val) {
+    if(isFull())
+        printf("Stack Overflow\n");
+    else
+        stack[++top] = val;
+}
+
+int pop() {
+    if(isEmpty()) {
+        printf("Stack Underflow\n");
+        return -1;
+    } else
+        return stack[top--];
+}
+
+int main() {
+    push(10);
+    push(20);
+    printf("%d\n", pop());
+    printf("%d\n", pop());
+    printf("%d\n", pop());
+    push(30);
+    printf("%d\n", pop());
+    return 0;
+}
