@@ -1,0 +1,70 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+struct Node {
+    int data;
+    struct Node *next;
+};
+
+struct Node* createNode(int data) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = data;
+    newNode->next = NULL;
+    return newNode;
+}
+
+struct Node* reverse(struct Node* head) {
+    struct Node *prev = NULL, *curr = head, *next = NULL;
+    while(curr != NULL) {
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+    return prev;
+}
+
+int isPalindrome(struct Node* head) {
+    struct Node *slow = head, *fast = head, *prev_slow = NULL;
+    while(fast != NULL && fast->next != NULL) {
+        prev_slow = slow;
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    struct Node *second_half = reverse(slow);
+    struct Node *copy_second = second_half;
+    struct Node *first_half = head;
+    int palindrome = 1;
+    while(second_half != NULL) {
+        if(first_half->data != second_half->data) {
+            palindrome = 0;
+            break;
+        }
+        first_half = first_half->next;
+        second_half = second_half->next;
+    }
+    reverse(copy_second);
+    if(prev_slow != NULL) prev_slow->next = copy_second;
+    return palindrome;
+}
+
+int main() {
+    int n, val;
+    struct Node *head = NULL, *temp = NULL;
+    scanf("%d", &n);
+    for(int i = 0; i < n; i++) {
+        scanf("%d", &val);
+        struct Node* newNode = createNode(val);
+        if(head == NULL)
+            head = temp = newNode;
+        else {
+            temp->next = newNode;
+            temp = newNode;
+        }
+    }
+    if(isPalindrome(head))
+        printf("Palindrome\n");
+    else
+        printf("Not Palindrome\n");
+    return 0;
+}
