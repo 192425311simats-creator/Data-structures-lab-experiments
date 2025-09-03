@@ -1,0 +1,14 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char haystack[1000], needle[1000];
+    scanf("%s", haystack);
+    scanf("%s", needle);
+    char *pos = strstr(haystack, needle);
+    if(pos != NULL)
+        printf("Found at index %ld\n", pos - haystack);
+    else
+        printf("Not Found\n");
+    return 0;
+}
