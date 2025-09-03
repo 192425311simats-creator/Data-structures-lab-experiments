@@ -1,0 +1,18 @@
+#include <stdio.h>
+
+#define MAX 100
+
+int main() {
+    int n1, n2, i;
+    int stack1[MAX], stack2[MAX];
+    scanf("%d", &n1);
+    for(i = 0; i < n1; i++)
+        scanf("%d", &stack1[i]);
+    scanf("%d", &n2);
+    for(i = 0; i < n2; i++)
+        scanf("%d", &stack2[i]);
+    int sum1 = stack1[0] + stack1[n1-1];
+    int sum2 = stack2[0] + stack2[n2-1];
+    printf("%d %d\n", sum1, sum2);
+    return 0;
+}
